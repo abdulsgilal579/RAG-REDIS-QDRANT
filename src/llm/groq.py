@@ -1,19 +1,14 @@
-
 from groq import Groq
-from dotenv import load_dotenv
-import os
 
-load_dotenv()  # Load environment variables from .env file
-
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+from src.config import GROQ_API_KEY, GROQ_MODEL
 
 groq_client = Groq(api_key=GROQ_API_KEY)
 
+
 def search_and_answer(chunks, query):
     context = "\n\n".join(chunks)
-
     response = groq_client.chat.completions.create(
-        model="openai/gpt-oss-120b",
+        model=GROQ_MODEL,
         messages=[
             {
                 "role": "system",
@@ -25,8 +20,4 @@ def search_and_answer(chunks, query):
             }
         ]
     )
-
     return response.choices[0].message.content
-
-if __name__ == "__main__":
-    search_and_answer("What are the skills and experience of this person?")
