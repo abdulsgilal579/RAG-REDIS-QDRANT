@@ -12,3 +12,6 @@ QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_MODEL = "openai/gpt-oss-120b"
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+CACHE_TTL = 3600  
