@@ -82,7 +82,55 @@ RAG-REDIS-QDRANT/
 
 ## Setup
 
-### 1. Clone and install
+### Option A — Docker (recommended)
+
+The easiest way to run the app. No Python environment needed — Docker handles everything including Qdrant and Redis.
+
+#### 1. Clone the repo
+
+```bash
+git clone https://github.com/abdulsamadgilal/RAG-REDIS-QDRANT.git
+cd RAG-REDIS-QDRANT
+```
+
+#### 2. Set up your environment
+
+```bash
+cp .env.example .env
+```
+
+Open `.env` and fill in your Groq API key:
+
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+#### 3. Add your PDF
+
+```bash
+mkdir -p data
+cp /path/to/your/document.pdf data/
+```
+
+#### 4. Build and run
+
+```bash
+docker compose up --build
+```
+
+This builds the app image and starts all three containers (app, Qdrant, Redis) in one command. The first build takes a few minutes due to PyTorch and model downloads — subsequent runs are instant.
+
+To stop everything:
+
+```bash
+docker compose down
+```
+
+---
+
+### Option B — Run locally (without Docker)
+
+#### 1. Clone and install
 
 ```bash
 git clone https://github.com/abdulsamadgilal/RAG-REDIS-QDRANT.git
@@ -92,14 +140,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Start the containers
+#### 2. Start the containers
 
 ```bash
 docker run -d --name qdrant -p 6333:6333 qdrant/qdrant
 docker run -d --name redis-cache -p 6379:6379 redis
 ```
 
-### 3. Add your API keys
+#### 3. Add your API keys
 
 Create a `.env` file:
 
@@ -109,11 +157,11 @@ QDRANT_URL=http://localhost:6333
 REDIS_URL=redis://localhost:6379
 ```
 
-### 4. Add your PDF
+#### 4. Add your PDF
 
-Drop your PDF into the `data/` folder and update `PDF_PATH` in `src/config.py`.
+Drop your PDF into the `data/` folder.
 
-### 5. Run
+#### 5. Run
 
 ```bash
 python main.py

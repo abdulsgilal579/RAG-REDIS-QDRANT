@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PDF_PATH = "data/Abdul Samad Gilal Resume.pdf"
+PDF_PATH = os.getenv("PDF_PATH", "data/Abdul Samad Gilal Resume.pdf")
 COLLECTION_NAME = "pdf_docs"
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 
